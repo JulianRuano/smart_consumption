@@ -11,7 +11,8 @@ import com.smart.consumption.query.application.IProductMongoService;
 import com.smart.consumption.query.domain.models.product.Product;
 import com.smart.consumption.query.infrastructure.rest.data.request.ProductRequest;
 import com.smart.consumption.query.infrastructure.rest.data.response.ProductResponse;
-import com.smart.consumption.query.infrastructure.rest.mapper.IProductRestMongoMapper;
+import com.smart.consumption.query.infrastructure.rest.mapper.IProductMongoRequestMapper;
+import com.smart.consumption.query.infrastructure.rest.mapper.IProductMongoResponseMapper;
 
 import lombok.RequiredArgsConstructor;
 
@@ -21,20 +22,21 @@ import lombok.RequiredArgsConstructor;
 public class ProductQueryController {
 
     private final IProductMongoService productService;
-    private final IProductRestMongoMapper productRestMapper;
+    private final IProductMongoResponseMapper productMongoResponseMapper;
+    private final IProductMongoRequestMapper productMongoRequestMapper;
 
     @PostMapping("/")
     public ResponseEntity<ProductResponse> save(@RequestBody ProductRequest productRequest) {
-        Product product = productRestMapper.toDomain(productRequest);
+        Product product = productMongoRequestMapper.toSource(productRequest);
         Product savedProduct = productService.save(product);
-        ProductResponse productResponse = productRestMapper.toResponse(savedProduct);
+        ProductResponse productResponse = productMongoResponseMapper.toTarget(savedProduct);
         return ResponseEntity.ok(productResponse);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<ProductResponse> findById(String id) {
         Product product = productService.findById(id);
-        ProductResponse productResponse = productRestMapper.toResponse(product);
+        ProductResponse productResponse = productMongoResponseMapper.toTarget(product);
         return ResponseEntity.ok(productResponse);
     }
     

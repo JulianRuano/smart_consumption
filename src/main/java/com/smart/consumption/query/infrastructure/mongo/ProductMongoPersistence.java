@@ -18,14 +18,14 @@ public class ProductMongoPersistence implements IProductRepository {
 
     @Override
     public Product save(Product product) {
-        ProductEntity productEntity = productMapper.toProduct(product);
+        ProductEntity productEntity = productMapper.toTarget(product);
         productEntity = productJpaRepository.save(productEntity);
-        return productMapper.toProduct(productEntity);
+        return productMapper.toSource(productEntity);
     }
 
     @Override
     public Product findById(String id) {
-        return productJpaRepository.findById(id).map(productMapper::toProduct).orElse(null);
+        return productJpaRepository.findById(id).map(productMapper::toSource).orElse(null);
     }
     
 }
