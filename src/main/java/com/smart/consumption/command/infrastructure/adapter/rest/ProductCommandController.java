@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.smart.consumption.command.application.IProductService;
+import com.smart.consumption.command.application.product.IProductService;
 import com.smart.consumption.command.domain.models.product.Product;
 import com.smart.consumption.command.infrastructure.adapter.rest.data.request.ProductRequest;
 import com.smart.consumption.command.infrastructure.adapter.rest.data.response.ProductResponse;

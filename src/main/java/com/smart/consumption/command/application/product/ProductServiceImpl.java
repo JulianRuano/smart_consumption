@@ -1,4 +1,4 @@
-package com.smart.consumption.command.application;
+package com.smart.consumption.command.application.product;
 
 import org.springframework.stereotype.Service;
 
